@@ -162,23 +162,23 @@ const update = async (req, res) => {
     .isInt().withMessage("id atribute must be a integer")
     .run(req)
 
-  await check("name")
-    .exists().withMessage("name atribute is required")
-    .notEmpty().withMessage("name atribute must not be empty")
-    .isString().withMessage("name atribute must be a string")
+  await check("date_appointment")
+    .exists().withMessage("date_appointment atribute is required")
+    .notEmpty().withMessage("date_appointment atribute must not be empty")
     .run(req)
 
-  await check("cost")
-    .exists().withMessage("cost atribute is required")
-    .notEmpty().withMessage("cost atribute must not be empty")
-    .isFloat().withMessage("cost atribute must be numeric")
+  await check("id_service")
+    .exists().withMessage("id_service atribute is required")
+    .notEmpty().withMessage("id_service atribute must not be empty")
+    .isInt().withMessage("id_service atribute must be integer")
     .run(req)
 
-  await check("status")
-    .exists().withMessage("status atribute is required")
-    .notEmpty().withMessage("status atribute must not be empty")
-    .isBoolean().withMessage("status atribute must be a boolean")
+  await check("id_patient")
+    .exists().withMessage("id_patient atribute is required")
+    .notEmpty().withMessage("id_patient atribute must not be empty")
+    .isInt().withMessage("id_patient atribute must be integer")
     .run(req)
+
   try {
     const result = validationResult(req);
     if (!result.isEmpty()) {
