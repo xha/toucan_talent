@@ -179,12 +179,18 @@ const update = async (req, res) => {
     .isInt().withMessage("id_patient atribute must be integer")
     .run(req)
 
-  try {
-    const result = validationResult(req);
-    if (!result.isEmpty()) {
-      return res.status(400).json({ status  : "fail", error: result.array() });
-    }
+  await check("status")
+    .exists().withMessage("status atribute is required")
+    .notEmpty().withMessage("status atribute must not be empty")
+    .isBoolean().withMessage("status atribute must be a boolean")
+    .run(req)
 
+  const result = validationResult(req);
+  if (!result.isEmpty()) {
+    return res.status(400).json({ status  : "fail", error: result.array() });
+  }
+
+  try {
     req.body.updatedAt = Date.now();
     
     let appointments = await appointment.update(req.body, { where: { id_appointment: req.body.id } })
